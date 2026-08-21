@@ -1,0 +1,45 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Order {
+  id             String        @id @default(cuid())
+  shopeeOrderSn  String        @unique
+  trackingNumber String?
+  buyerUsername  String?
+  productDetails String
+  courier        String?
+  paymentMethod  String?       @default("NON_COD") // "NON_COD" | "COD"
+  status         String        @default("NEW") // "NEW" | "IN_PROGRESS" | "QC_TESTING" | "PACKING" | "COMPLETED"
+  technicianName String?
+  qcVideoPath    String?
+  notes          String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  returns        ReturnClaim[]
+}
+
+model ReturnClaim {
+  id                  String   @id @default(cuid())
+  shopeeOrderSn       String
+  returnTrackingNumber String?
+  buyerUsername       String?
+  productDetails      String?
+  returnReason        String   @default("GAGAL_KIRIM_RTS") // "GAGAL_KIRIM_RTS" | "KOMPLAIN_PEMBELI" | "LAINNYA"
+  status              String   @default("MENUNGGU_UNBOXING") // "MENUNGGU_UNBOXING" | "UNBOXING_SELESAI" | "KLAIM_DIAJUKAN" | "KLAIM_DISETUJUI" | "KLAIM_DITOLAK" | "SELESAI"
+  photoOuterPath      String?  // 1. Foto Paket Luar / Segel
+  photoResiPath       String?  // 2. Foto Label Resi Retur
+  photoInsidePath     String?  // 3. Foto Isi Paket Saat Dibuka
+  videoProofPath      String?  // 4. Video Bukti Kerusakan / Unboxing Fisik
+  technicianName      String?
+  claimNotes          String?
+  orderId             String?
+  order               Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
