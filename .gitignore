@@ -27,3 +27,7 @@ yarn-error.log*
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# file besar >95MB — gak muat github
+public/uploads/shared-files/POS_Toko_Kelontong_UMKM_Setup_*.rar
+

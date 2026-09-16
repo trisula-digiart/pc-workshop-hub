@@ -6,6 +6,14 @@ import { Cpu, FileSpreadsheet, LayoutGrid } from "lucide-react";
 export const metadata: Metadata = {
   title: "PC Workshop - ShopOrder & QC Hub",
   description: "Localhost Workstation & Video QC Hub for PC Assembly",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico", type: "image/x-icon" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -19,8 +27,8 @@ export default function RootLayout({
         <header className="sticky top-0 z-40 w-full border-b border-cyan-500/20 bg-slate-950/90 backdrop-blur-md">
           <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="p-2 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 group-hover:border-cyan-400 transition-colors shadow-[0_0_12px_rgba(6,182,212,0.2)]">
-                <Cpu className="w-5 h-5" />
+              <div className="p-1 rounded-xl bg-slate-900 border border-cyan-500/40 text-cyan-400 group-hover:border-cyan-400 transition-colors shadow-[0_0_12px_rgba(6,182,212,0.25)] flex items-center justify-center">
+                <img src="/logo.png" alt="K2C Komputindo Logo" className="w-7 h-7 object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-sm tracking-wider text-slate-100 uppercase">

@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import { KanbanBoard } from "@/components/kanban/KanbanBoard";
 import { ReturnClaimHub } from "@/components/returns/ReturnClaimHub";
 import { ArchiveHub } from "@/components/archive/ArchiveHub";
+import { FileTransferHub } from "@/components/files/FileTransferHub";
 import { ImportModal } from "@/components/kanban/ImportModal";
-import { LayoutGrid, PackageX, FileSpreadsheet, Layers, Archive } from "lucide-react";
+import { LayoutGrid, PackageX, FileSpreadsheet, Layers, Archive, ArrowUpDown } from "lucide-react";
 
 export default function WorkstationPage() {
-  const [activeTab, setActiveTab] = useState<"KANBAN" | "RETURNS" | "ARCHIVE">("KANBAN");
+  const [activeTab, setActiveTab] = useState<"KANBAN" | "RETURNS" | "ARCHIVE" | "FILE_TRANSFER">("KANBAN");
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 
   return (
@@ -74,6 +75,18 @@ export default function WorkstationPage() {
                 <Archive className="w-3.5 h-3.5" />
                 <span>Arsip Order</span>
               </button>
+
+              <button
+                onClick={() => setActiveTab("FILE_TRANSFER")}
+                className={`px-3.5 py-1.5 rounded-lg font-bold flex items-center gap-2 transition-all ${
+                  activeTab === "FILE_TRANSFER"
+                    ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.2)]"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <ArrowUpDown className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Transfer File</span>
+              </button>
             </div>
 
             {/* Import Shopee Button (Hanya tampil di tab Kanban) */}
@@ -95,7 +108,9 @@ export default function WorkstationPage() {
         {activeTab === "KANBAN" && <KanbanBoard />}
         {activeTab === "RETURNS" && <ReturnClaimHub />}
         {activeTab === "ARCHIVE" && <ArchiveHub />}
+        {activeTab === "FILE_TRANSFER" && <FileTransferHub />}
       </main>
+
 
       {/* Modal Bulk Import Shopee */}
       <ImportModal

@@ -1,0 +1,79 @@
+ PANDUAN PEMULIHAN APLIKASI K2C KOMPUTINDO (RECOVERY TUTORIAL)
+Gunakan panduan ini jika PC Anda di-install ulang, ganti harddisk, atau pindah ke komputer baru.
+
+🛠 STEP 1: Download & Install Software Dasar (Di PC Baru)
+Di PC baru, download dan install 3 aplikasi wajib ini terlebih dahulu (install seperti biasa):
+
+Node.js (v20 LTS / Terbaru): Download dari nodejs.org.
+Git for Windows: Download dari git-scm.com.
+VS Code (Visual Studio Code): Download dari code.visualstudio.com.
+📥 STEP 2: Clone Kodingan dari GitHub Menggunakan VS Code
+Buka aplikasi VS Code.
+Buka Terminal di VS Code: Tekan tombol Ctrl + ~ (atau menu atas: Terminal -> New Terminal).
+Buat folder tempat proyek di PC baru (misal H:\TRISULA_DIGIART atau C:\PROJECTS):
+bash
+
+
+mkdir H:\TRISULA_DIGIART
+cd H:\TRISULA_DIGIART
+Clone kedua proyek dari GitHub Private Anda:
+bash
+
+
+git clone https://github.com/trisula-digiart/pc-workshop-hub.git
+git clone https://github.com/trisula-digiart/DATA-PEMBELIAN-K2C.git
+⚙️ STEP 3: Setup Server 1 - PC Workshop Hub (Port 3007)
+Di VS Code, buka folder pc-workshop-hub (File -> Open Folder -> pilih pc-workshop-hub).
+Buka Terminal (Ctrl + ~) lalu jalankan:
+bash
+
+
+npm install
+Copy/kembalikan file dev.db hasil backup Anda ke folder prisma/dev.db.
+Build aplikasi:
+bash
+
+
+npx prisma generate
+npx next build
+⚙️ STEP 4: Setup Server 2 - DATA-PEMBELIAN-K2C (Port 3008)
+Di VS Code, buka folder DATA-PEMBELIAN-K2C (File -> Open Folder -> pilih DATA-PEMBELIAN-K2C).
+Buka Terminal (Ctrl + ~) lalu jalankan:
+bash
+
+
+npm install
+Copy/kembalikan file dev.db hasil backup Anda ke folder prisma/dev.db.
+Copy folder foto bukti transfer hasil backup Anda ke folder public/uploads/.
+Build aplikasi:
+bash
+
+
+npx prisma generate
+npx next build
+🚀 STEP 5: Jalankan Server Otomatis (PM2 Auto-Start)
+Agar kedua server berjalan otomatis di background:
+
+Di Terminal VS Code, install PM2:
+bash
+
+
+npm install -g pm2
+Jalankan kedua aplikasi sekaligus lewat PM2:
+bash
+
+
+# Jalankan Port 3007
+cd H:\TRISULA_DIGIART\pc-workshop-hub
+npx pm2 start npm --name "pc-workshop-hub" -- start -- -p 3007
+# Jalankan Port 3008
+cd H:\TRISULA_DIGIART\DATA-PEMBELIAN-K2C
+npx pm2 start npm --name "k2c-inbound-app" -- start -- -p 3008
+# Simpan Status PM2
+npx pm2 save
+✅ Selesai! Kedua Server Kembali Aktif Normal 100%
+Buka browser PC Anda:
+
+Port 3007: http://localhost:3007 (Kanban Board, QC Video, Return Hub)
+Port 3008: http://localhost:3008 (Sistem Pembelian K2C & Supplier Ledger)
+Dengan dokumen panduan ini dan GitHub Private repo yang sudah aktif, bro tidak perlu khawatir lagi walaupun PC di-install ulang kapan saja! ☕️🔥

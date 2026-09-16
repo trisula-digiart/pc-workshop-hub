@@ -43,3 +43,18 @@ model ReturnClaim {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 }
+
+model SharedFile {
+  id            String   @id @default(cuid())
+  filename      String
+  storedName    String
+  filePath      String
+  fileSize      Float
+  mimeType      String?
+  category      String   @default("SOFTWARE") // "SOFTWARE" | "DRIVER" | "DOCUMENT" | "OTHER"
+  description   String?
+  downloadCount Int      @default(0)
+  uploader      String?  @default("Workstation")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
